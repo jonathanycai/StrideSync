@@ -6,7 +6,7 @@ Welcome to Catacode, your playful guide to mastering syntax across different pro
 
 Catacode is a beginner-friendly educational app that helps users learn the syntax of different programming languages through interactive lessons and quizzes. Inspired by platforms like Duolingo, we gamify the learning process to make syntax learning fun and intuitive. Whether you're switching from Python to JavaScript, or just starting out with Java, Catacode has you covered!
 
-Join Ditty as they morph between different coding languages, helping you bridge the gap between Python's simplicity, JavaScript's flexibility, and Java's structure.
+Join Ditty as she morphs between different coding languages, helping you bridge the gap between Python's simplicity, JavaScript's flexibility, and Java's structure.
 
 ## 🚀 Features
 
