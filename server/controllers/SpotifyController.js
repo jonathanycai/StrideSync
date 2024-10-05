@@ -1,23 +1,21 @@
-const request = require('request');
+const SpotifyWebApi = require('spotify-web-api-node');
+const dotenv = require('dotenv');
+dotenv.config();
 
-var client_id = process.env.CLIENT_ID;
-var client_secret = process.env.CLIENT_SECRET;
-const token = '';
-
-var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    headers: {
-        'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
-    },
-    form: {
-        grant_type: 'client_credentials'
-    },
-    json: true
-};
-
-request.post(authOptions, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-        token = body.access_token;
-    }
+const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
 });
+
+spotifyApi.clientCredentialsGrant().then(
+    (data) => {
+        spotifyApi.setAccessToken(data.body['access_token']);
+        console.log('Access token retrieved successfully');
+    },
+    (err) => {
+        console.log('Error retrieving access token', err);
+    }
+);
+
+
 
