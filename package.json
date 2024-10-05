@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonathanycai/CataCode.git"
+    "url": "git+https://github.com/jonathanycai/StrideSync.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonathanycai/CataCode/issues"
+    "url": "https://github.com/jonathanycai/StrideSync/issues"
   },
-  "homepage": "https://github.com/jonathanycai/CataCode#readme",
+  "homepage": "https://github.com/jonathanycai/StrideSync#readme",
   "description": "",
   "dependencies": {
     "express": "^4.21.0"
