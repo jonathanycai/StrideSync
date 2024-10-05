@@ -1,8 +1,13 @@
+const OpenAIController = require('./controllers/OpenAIController');
+
 const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello, Express.js Server!</h1>')
+    var playList = new OpenAIController(50, "rap", 120).getPlaylist();
+    for (let i = 0; i < playList.length; i++) {
+        console.log(playList[i]);
+    }
 })
 
 const port = process.env.PORT || 3000;
