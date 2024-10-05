@@ -18,6 +18,8 @@
   "homepage": "https://github.com/jonathanycai/StrideSync#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.21.0"
+    "axios": "^1.7.7",
+    "express": "^4.21.0",
+    "request": "^2.88.2"
   }
 }
