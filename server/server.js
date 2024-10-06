@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const html = require('./public/page.js');  // Load the HTML content
 const SpotifyController = require('./controllers/SpotifyController');  // Import SpotifyController
+const OpenAiController = require('./controllers/OpenAiController.js');
 
 const app = express();
 app.use(bodyParser.json());
