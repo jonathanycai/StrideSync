@@ -5,139 +5,230 @@ const html = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify OAuth Playback</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            width: 90%;  
+            max-width: 1400px;
+            background-color: #444444;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #bbbbbb;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 15px;
+            background-color: #555555;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #317BFE;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2565CC;
+        }
+
+        .player-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .player-container audio {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #prev, #play, #next {
+            background-color: white;
+            color: #317BFE;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+        }
+
+        #prev:hover, #play:hover, #next:hover {
+            background-color: #dddddd;
+        }
+
+        #volume {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        #playlist {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        #playlist.hidden {
+            display: none;
+        }
+
+        #playlist li {
+            background-color: #555555;
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1 1 calc(33% - 20px);
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #555555;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #317BFE;
+            width: 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Spotify OAuth Playback Control</h1>
+    <div class="container">
+        <h1>Spotify OAuth Playback Control</h1>
 
-    <!-- Spotify login -->
-    <div>
-        <button id="login-button">Login with Spotify</button>
-    </div>
-
-    <!-- Playlist generation -->
-    <h2>Generate Playlist</h2>
-    <div>
-        <label for="bpm">BPM: </label>
-        <input type="text" id="bpm" placeholder="Enter BPM" />
-    </div>
-
-    <div>
-        <label for="genre">Genre: </label>
-        <input type="text" id="genre" placeholder="Enter Genre" />
-    </div>
-
-    <div>
-        <label for="duration">Duration (in minutes): </label>
-        <input type="text" id="duration" placeholder="Enter Playlist Duration" />
-    </div>
-
-    <button id="generate-playlist">Generate Playlist</button>
-
-    <!-- Player controls -->
-    <h2>Music Player</h2>
-    <div class="player-container">
-        <audio id="music-player" controls>
-        </audio>
-        <button id="prev">Prev</button>
-        <button id="play">Play/Pause</button>
-        <button id="next">Next</button>
-        <input type="range" id="volume" min="0" max="1" step="0.1">
-
-        <div class="progress-bar">
-            <div class="progress"></div>
+        <!-- Spotify login -->
+        <div>
+            <button id="login-button">Login with Spotify</button>
         </div>
 
+        <!-- Playlist generation -->
+        <h2>Generate Playlist</h2>
+        <div>
+            <label for="bpm">BPM: </label>
+            <input type="text" id="bpm" placeholder="Enter BPM" />
+        </div>
+
+        <div>
+            <label for="genre">Genre: </label>
+            <input type="text" id="genre" placeholder="Enter Genre" />
+        </div>
+
+        <div>
+            <label for="duration">Duration (in minutes): </label>
+            <input type="text" id="duration" placeholder="Enter Playlist Duration" />
+        </div>
+
+        <button id="generate-playlist">Generate Playlist</button>
+
+        <!-- Player controls -->
+        <h2>Music Player</h2>
+        <div class="player-container">
+            <audio id="music-player" controls></audio>
+            <button id="prev">⏮</button>
+            <button id="play">⏯</button>
+            <button id="next">⏭</button>
+            <input type="range" id="volume" min="0" max="1" step="0.1">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <!-- Generated Playlist - initially hidden -->
         <h2>Generated Playlist:</h2>
-        <ul id="playlist" class="playlist">
-            <!-- Playlist songs will be loaded here -->
+        <ul id="playlist" class="hidden">
+            <li>Not Like Us</li>
+            <li>Lose Yourself</li>
+            <li>No Role Modelz</li>
+            <li>Real Slim Shady</li>
+            <li>Surround Sound</li>
+            <li>Too Comfortable</li>
         </ul>
     </div>
 
-    <!-- Load the player.js script for additional functionality -->
     <script src="/player.js"></script>
-
     <script>
-        document.getElementById('login-button').addEventListener('click', () => {
-            window.location.href = '/login';
-        });
+        window.addEventListener('load', () => {
+            // Hide the playlist initially
+            const playlistElement = document.getElementById('playlist');
 
-        // Playlist generation event
-        document.getElementById('generate-playlist').addEventListener('click', async () => {
-            const bpm = document.getElementById('bpm').value;
-            const genre = document.getElementById('genre').value;
-            const duration = document.getElementById('duration').value;
+            // Handle the Play/Pause functionality
+            let isPlaying = false;  // Variable to track if audio is playing
+            const musicPlayer = document.getElementById('music-player');
+            const playBtn = document.getElementById('play');
 
-            if (!bpm || !genre || !duration) {
-                alert("Please fill in all fields");
-                return;
-            }
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    musicPlayer.pause();
+                    playBtn.textContent = "⏯";
+                    isPlaying = false;
+                } else {
+                    musicPlayer.play();
+                    playBtn.textContent = "⏸";  // Change to Pause symbol
+                    isPlaying = true;
+                }
+            });
 
-            try {
-                const response = await fetch('/spotify/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        bpm: bpm,
-                        genre: genre,
-                        duration: duration
-                    })
-                });
+            document.getElementById('generate-playlist').addEventListener('click', () => {
+                // Show the playlist after clicking "Generate Playlist"
+                playlistElement.classList.remove('hidden');
+            });
 
-                const data = await response.json();
-                const playlistElement = document.getElementById('playlist');
-                playlistElement.innerHTML = '';  // Clear previous list
+            // Volume control
+            const volumeControl = document.getElementById('volume');
+            volumeControl.addEventListener('input', () => {
+                musicPlayer.volume = volumeControl.value;
+            });
 
-                data.playlist.forEach(song => {
-                    const li = document.createElement('li');
-                    li.textContent = song.title;
-                    playlistElement.appendChild(li);
-                });
+            // Update the progress bar
+            const progressBar = document.querySelector('.progress-bar');
+            const progress = document.querySelector('.progress');
 
-            } catch (error) {
-                console.error('Error generating playlist:', error);
-                alert('An error occurred while generating the playlist.');
-            }
-        });
-
-        // Music control buttons
-        const playBtn = document.getElementById('play');
-        const prevBtn = document.getElementById('prev');
-        const nextBtn = document.getElementById('next');
-        const musicPlayer = document.getElementById('music-player');
-
-        playBtn.addEventListener('click', () => {
-            if (musicPlayer.paused) {
-                musicPlayer.play();
-                playBtn.textContent = "Pause";
-            } else {
-                musicPlayer.pause();
-                playBtn.textContent = "Play";
-            }
-        });
-
-        prevBtn.addEventListener('click', async () => {
-            await fetch('/spotify/previous', { method: 'POST' });
-        });
-
-        nextBtn.addEventListener('click', async () => {
-            await fetch('/spotify/next', { method: 'POST' });
-        });
-
-        // Volume control
-        const volumeControl = document.getElementById('volume');
-        volumeControl.addEventListener('input', () => {
-            musicPlayer.volume = volumeControl.value;
-        });
-
-        // Progress bar update
-        const progressBar = document.querySelector('.progress-bar');
-        const progress = document.querySelector('.progress');
-
-        musicPlayer.addEventListener('timeupdate', () => {
-            const currentTime = musicPlayer.currentTime;
-            const duration = musicPlayer.duration;
-            const progressPercent = (currentTime / duration) * 100;
-            progress.style.width = progressPercent + '%';
+            musicPlayer.addEventListener('timeupdate', () => {
+                const currentTime = musicPlayer.currentTime;
+                const duration = musicPlayer.duration;
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = progressPercent + '%';
+            });
         });
     </script>
 </body>

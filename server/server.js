@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const SpotifyWebApi = require('spotify-web-api-node');  // Import SpotifyWebApi
 const html = require('./public/page.js');  // Load the HTML content
-const SpotifyController = require('./controllers/SpotifyController');  // Import SpotifyController
+const SpotifyController = require('./controllers/SpotifyController.js');  // Import SpotifyController
 
 let spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Serve static files from the 'public' folder
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the HTML content at "/"
 app.get("/", (req, res) => {
@@ -86,6 +86,8 @@ app.get('/refresh_token', async (req, res) => {
 // Handle POST request to generate a playlist based on user input
 app.post('/spotify/generate', async (req, res) => {
     const { bpm, genre, duration } = req.body;
+
+    console.log('Generating playlist with:', { bpm, genre, duration });  // Log request parameters
 
     try {
         // Reinitialize the SpotifyController with the user-provided parameters
