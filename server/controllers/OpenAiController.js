@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
 
-class OpenAIController {
+class OpenAiController {
     constructor(workoutLength, genre, bpm) {
         this.workoutLength = workoutLength;
         this.genre = genre;
@@ -37,4 +37,4 @@ class OpenAIController {
 
 }
 
-module.exports = OpenAIController;
+module.exports = OpenAiController;

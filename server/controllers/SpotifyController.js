@@ -1,5 +1,5 @@
 const SpotifyWebApi = require('spotify-web-api-node');
-const OpenAIController = require('./OpenAIController');  // Import the OpenAIController
+const OpenAIController = require('./OpenAiController');  // Import the OpenAIController
 
 // Initialize Spotify API
 const spotifyApi = new SpotifyWebApi({

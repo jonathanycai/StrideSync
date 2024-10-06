@@ -1,4 +1,4 @@
-const OpenAIController = require('./controllers/OpenAIController');
+const OpenAIController = require('./controllers/OpenAiController');
 
 const express = require('express');
 const app = express();
@@ -8,6 +8,10 @@ app.get('/', (req, res) => {
     for (let i = 0; i < playList.length; i++) {
         console.log(playList[i]);
     }
+})
+
+app.get('/spotify', (req, res) => {
+
 })
 
 const port = process.env.PORT || 3000;
