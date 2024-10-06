@@ -1,6 +1,7 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const OpenAiController = require('./OpenAiController');
 
+// Initialize Spotify API with OAuth credentials
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -17,14 +18,18 @@ class SpotifyController {
         this.openAIController = new OpenAiController(workoutLength, genre, bpm);
     }
 
-    // Method to authenticate Spotify API using client credentials grant
+    // Authenticate using OAuth (refresh token if necessary)
     async authenticate() {
         try {
-            const data = await spotifyApi.clientCredentialsGrant();
+            if (spotifyApi.getAccessToken()) {
+                return;  // Token already set
+            }
+
+            const data = await spotifyApi.refreshAccessToken();
             spotifyApi.setAccessToken(data.body['access_token']);
-            console.log('Access token retrieved successfully');
+            console.log('Access token refreshed successfully.');
         } catch (error) {
-            console.error('Error authenticating Spotify:', error);
+            console.error('Error refreshing access token:', error);
         }
     }
 
@@ -53,11 +58,9 @@ class SpotifyController {
         console.log(`Playing song: ${currentSongTitle}`);
 
         try {
-            // Ensure the API is authenticated
             await this.authenticate();
 
             const searchResponse = await spotifyApi.searchTracks(`track:${currentSongTitle}`, { limit: 1 });
-
             if (searchResponse.body.tracks.items.length > 0) {
                 const firstTrack = searchResponse.body.tracks.items[0];
                 const trackUri = firstTrack.uri;
@@ -71,21 +74,34 @@ class SpotifyController {
         }
     }
 
-    // Play previous song
-    previousSong() {
+    // Pause the current song
+    async pauseCurrentSong() {
+        try {
+            await this.authenticate();
+            await spotifyApi.pause();
+            console.log('Playback paused');
+        } catch (error) {
+            console.error('Error pausing playback:', error);
+        }
+    }
+
+    // Play the previous song in the playlist
+    async previousSong() {
         if (this.currentSongIndex > 0) {
             this.currentSongIndex--;
-            this.playCurrentSong();
+            console.log(`Playing previous song: ${this.playlist[this.currentSongIndex].title}`);
+            await this.playCurrentSong();
         } else {
             console.log('Already at the beginning of the playlist.');
         }
     }
 
-    // Play next song
-    nextSong() {
+    // Play the next song in the playlist
+    async nextSong() {
         if (this.currentSongIndex < this.playlist.length - 1) {
             this.currentSongIndex++;
-            this.playCurrentSong();
+            console.log(`Playing next song: ${this.playlist[this.currentSongIndex].title}`);
+            await this.playCurrentSong();
         } else {
             console.log('End of playlist.');
         }
