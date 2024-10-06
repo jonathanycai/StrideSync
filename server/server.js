@@ -44,6 +44,7 @@ app.post('/spotify/play', async (req, res) => {
         if (!spotifyController || !spotifyController.playlist.length) {
             return res.status(400).send('No playlist available to play');
         }
+        console.log("Play button works")
 
         await spotifyController.playCurrentSong();
         res.send('Playing song');

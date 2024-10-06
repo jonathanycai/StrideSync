@@ -55,9 +55,9 @@ class SpotifyController {
         try {
             // Ensure the API is authenticated
             await this.authenticate();
-
+            console.log('authenticated successfully.');
             const searchResponse = await spotifyApi.searchTracks(`track:${currentSongTitle}`, { limit: 1 });
-
+            console.log(`Search results passed`);
             if (searchResponse.body.tracks.items.length > 0) {
                 const firstTrack = searchResponse.body.tracks.items[0];
                 const trackUri = firstTrack.uri;
