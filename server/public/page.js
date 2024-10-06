@@ -33,23 +33,35 @@ const html = `
 
     <button id="generate-playlist">Generate Playlist</button>
 
-    <!-- Playback controls -->
-    <h2>Playback Controls</h2>
-    <div>
-        <button id="play-button">Play</button>
-        <button id="pause-button">Pause</button>
-        <button id="previous-button">Play Previous</button>
-        <button id="next-button">Play Next</button>
+    <!-- Player controls -->
+    <h2>Music Player</h2>
+    <div class="player-container">
+        <audio id="music-player" controls>
+        </audio>
+        <button id="prev">Prev</button>
+        <button id="play">Play/Pause</button>
+        <button id="next">Next</button>
+        <input type="range" id="volume" min="0" max="1" step="0.1">
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <h2>Generated Playlist:</h2>
+        <ul id="playlist" class="playlist">
+            <!-- Playlist songs will be loaded here -->
+        </ul>
     </div>
 
-    <h2>Generated Playlist:</h2>
-    <ul id="playlist"></ul>
+    <!-- Load the player.js script for additional functionality -->
+    <script src="/player.js"></script>
 
     <script>
         document.getElementById('login-button').addEventListener('click', () => {
             window.location.href = '/login';
         });
 
+        // Playlist generation event
         document.getElementById('generate-playlist').addEventListener('click', async () => {
             const bpm = document.getElementById('bpm').value;
             const genre = document.getElementById('genre').value;
@@ -87,20 +99,45 @@ const html = `
             }
         });
 
-        document.getElementById('play-button').addEventListener('click', async () => {
-            await fetch('/spotify/play', { method: 'POST' });
+        // Music control buttons
+        const playBtn = document.getElementById('play');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const musicPlayer = document.getElementById('music-player');
+
+        playBtn.addEventListener('click', () => {
+            if (musicPlayer.paused) {
+                musicPlayer.play();
+                playBtn.textContent = "Pause";
+            } else {
+                musicPlayer.pause();
+                playBtn.textContent = "Play";
+            }
         });
 
-        document.getElementById('pause-button').addEventListener('click', async () => {
-            await fetch('/spotify/pause', { method: 'POST' });
-        });
-
-        document.getElementById('previous-button').addEventListener('click', async () => {
+        prevBtn.addEventListener('click', async () => {
             await fetch('/spotify/previous', { method: 'POST' });
         });
 
-        document.getElementById('next-button').addEventListener('click', async () => {
+        nextBtn.addEventListener('click', async () => {
             await fetch('/spotify/next', { method: 'POST' });
+        });
+
+        // Volume control
+        const volumeControl = document.getElementById('volume');
+        volumeControl.addEventListener('input', () => {
+            musicPlayer.volume = volumeControl.value;
+        });
+
+        // Progress bar update
+        const progressBar = document.querySelector('.progress-bar');
+        const progress = document.querySelector('.progress');
+
+        musicPlayer.addEventListener('timeupdate', () => {
+            const currentTime = musicPlayer.currentTime;
+            const duration = musicPlayer.duration;
+            const progressPercent = (currentTime / duration) * 100;
+            progress.style.width = progressPercent + '%';
         });
     </script>
 </body>

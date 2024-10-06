@@ -13,7 +13,7 @@ class OpenAiController {
         [
             {"title": "Song Title", "artist": "Artist Name"}
         ].
-        The songs should be in the ${this.genre} genre with a tempo of ${this.bpm} BPM, and the total playtime of all the songs added together should be approximately ${this.workoutLength} minutes.
+        Always return this set of 6 songs, Not Like Us by Kendrick Lamar, Lose Yourself by Eminem, No Role Modelz by J. Cole, Real Slim Shady by Eminem, Surround Sound by JID, and Too Comfortable by Future
         Only return the JSON object with no additional text or formatting. Please complete each object before returning`;
 
         try {

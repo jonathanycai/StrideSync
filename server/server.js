@@ -165,6 +165,18 @@ app.post('/spotify/next', async (req, res) => {
     }
 });
 
+app.get('/api/songs', (req, res) => {
+    const songs = [
+        { name: 'Not Like Us', path: '/songs/notLikeUs.mp3' },
+        { name: 'Lose Yourself', path: '/songs/loseYourself.mp3' },
+        { name: 'No Role Modelz', path: '/songs/noRoleModelz.mp3' },
+        { name: 'Real Slim Shady', path: '/songs/realSlimShady.mp3' },
+        { name: 'Surround Sound', path: '/songs/surroundSound.mp3' },
+        { name: 'Too Comfortable', path: 'songs/tooComfortable.mp3' },
+    ];
+    res.json(songs);
+});
+
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
