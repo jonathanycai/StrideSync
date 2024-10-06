@@ -17,6 +17,18 @@ class SpotifyController {
         this.openAIController = new OpenAiController(workoutLength, genre, bpm);
     }
 
+    // Method to authenticate Spotify API using client credentials grant
+    async authenticate() {
+        try {
+            const data = await spotifyApi.clientCredentialsGrant();
+            spotifyApi.setAccessToken(data.body['access_token']);
+            console.log('Access token retrieved successfully');
+        } catch (error) {
+            console.error('Error authenticating Spotify:', error);
+        }
+    }
+
+    // Fetch playlist using OpenAI and store it
     async getPlaylist() {
         try {
             this.playlist = await this.openAIController.getPlaylist();
@@ -30,6 +42,7 @@ class SpotifyController {
         }
     }
 
+    // Play the current song
     async playCurrentSong(deviceId) {
         if (this.playlist.length === 0) {
             console.log('Playlist is empty. Fetch the playlist first.');
@@ -40,6 +53,9 @@ class SpotifyController {
         console.log(`Playing song: ${currentSongTitle}`);
 
         try {
+            // Ensure the API is authenticated
+            await this.authenticate();
+
             const searchResponse = await spotifyApi.searchTracks(`track:${currentSongTitle}`, { limit: 1 });
 
             if (searchResponse.body.tracks.items.length > 0) {
@@ -55,6 +71,7 @@ class SpotifyController {
         }
     }
 
+    // Play previous song
     previousSong() {
         if (this.currentSongIndex > 0) {
             this.currentSongIndex--;
@@ -64,6 +81,7 @@ class SpotifyController {
         }
     }
 
+    // Play next song
     nextSong() {
         if (this.currentSongIndex < this.playlist.length - 1) {
             this.currentSongIndex++;
@@ -73,6 +91,7 @@ class SpotifyController {
         }
     }
 
+    // List the songs in the playlist
     listSongs() {
         return this.playlist;
     }
