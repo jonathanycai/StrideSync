@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const html = require('./public/page.js');  // Load the HTML content
 const SpotifyController = require('./controllers/SpotifyController');  // Import SpotifyController
-const OpenAiController = require('./controllers/OpenAiController.js');
+
+let spotifyController;  // Initialize a variable to hold the SpotifyController instance
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,11 +22,15 @@ app.post('/spotify/generate', async (req, res) => {
     const { bpm, genre, duration } = req.body;
 
     try {
-        const spotifyController = new SpotifyController(duration, genre, bpm);
+        // Initialize SpotifyController with the provided parameters (duration, genre, bpm)
+        spotifyController = new SpotifyController(duration, genre, bpm);
+
+        // Generate the playlist using the initialized SpotifyController
         await spotifyController.getPlaylist();
 
-        const playlist = spotifyController.listSongs();  // Get the generated playlist
-        res.json({ playlist });  // Return the playlist as JSON
+        // Get the generated playlist and return it as JSON
+        const playlist = spotifyController.listSongs();
+        res.json({ playlist });
     } catch (error) {
         console.error('Error generating playlist:', error);
         res.status(500).send('Error generating playlist');
@@ -35,7 +40,11 @@ app.post('/spotify/generate', async (req, res) => {
 // Handle POST request to play a song
 app.post('/spotify/play', async (req, res) => {
     try {
-        const spotifyController = new SpotifyController();  // Adjust as necessary
+        // Ensure that the playlist has been generated
+        if (!spotifyController || !spotifyController.playlist.length) {
+            return res.status(400).send('No playlist available to play');
+        }
+
         await spotifyController.playCurrentSong();
         res.send('Playing song');
     } catch (error) {
@@ -43,43 +52,52 @@ app.post('/spotify/play', async (req, res) => {
         res.status(500).send('Error playing song');
     }
 });
-//
-// // Handle POST request to pause a song
-// app.post('/spotify/pause', async (req, res) => {
-//     try {
-//         const spotifyController = new SpotifyController();  // Adjust as necessary
-//         await spotifyController.pauseCurrentSong();
-//         res.send('Paused song');
-//     } catch (error) {
-//         console.error('Error pausing song:', error);
-//         res.status(500).send('Error pausing song');
-//     }
-// });
-//
-// // Handle POST request to play previous song
-// app.post('/spotify/previous', async (req, res) => {
-//     try {
-//         const spotifyController = new SpotifyController();  // Adjust as necessary
-//         await spotifyController.previousSong();
-//         res.send('Playing previous song');
-//     } catch (error) {
-//         console.error('Error playing previous song:', error);
-//         res.status(500).send('Error playing previous song');
-//     }
-// });
-//
-// // Handle POST request to skip to the next song
-// app.post('/spotify/next', async (req, res) => {
-//     try {
-//         const spotifyController = new SpotifyController();  // Adjust as necessary
-//         await spotifyController.nextSong();
-//         res.send('Playing next song');
-//     } catch (error) {
-//         console.error('Error playing next song:', error);
-//         res.status(500).send('Error playing next song');
-//     }
-// });
-//
+
+// Handle POST request to pause a song
+app.post('/spotify/pause', async (req, res) => {
+    try {
+        if (!spotifyController) {
+            return res.status(400).send('No active playlist to pause');
+        }
+
+        await spotifyController.pauseCurrentSong();
+        res.send('Paused song');
+    } catch (error) {
+        console.error('Error pausing song:', error);
+        res.status(500).send('Error pausing song');
+    }
+});
+
+// Handle POST request to play previous song
+app.post('/spotify/previous', async (req, res) => {
+    try {
+        if (!spotifyController) {
+            return res.status(400).send('No active playlist');
+        }
+
+        await spotifyController.previousSong();
+        res.send('Playing previous song');
+    } catch (error) {
+        console.error('Error playing previous song:', error);
+        res.status(500).send('Error playing previous song');
+    }
+});
+
+// Handle POST request to skip to the next song
+app.post('/spotify/next', async (req, res) => {
+    try {
+        if (!spotifyController) {
+            return res.status(400).send('No active playlist');
+        }
+
+        await spotifyController.nextSong();
+        res.send('Playing next song');
+    } catch (error) {
+        console.error('Error playing next song:', error);
+        res.status(500).send('Error playing next song');
+    }
+});
+
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
