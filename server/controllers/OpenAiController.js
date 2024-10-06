@@ -25,7 +25,6 @@ class OpenAiController {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
             const playlist = JSON.parse(response.data.choices[0].message.content);
             console.log('Generated Playlist:', playlist.songs);
             return playlist.songs;
