@@ -4,7 +4,7 @@ const axios = require('axios');
 const openaiApiKey = process.env.OPENAI_API_KEY;
 
 class OpenAIController {
-    constructor(workoutLength, genre, bpm){
+    constructor(workoutLength, genre, bpm) {
         this.workoutLength = workoutLength;
         this.genre = genre;
         this.bpm = bpm;
@@ -17,7 +17,7 @@ class OpenAIController {
         try {
             const response = await axios.post('https://api.openai.com/v1/chat/completions', {
                 model: "gpt-3.5-turbo",
-                messages: [{role: "user", content: prompt}],
+                messages: [{ role: "user", content: prompt }],
                 max_tokens: 150
             }, {
                 headers: {
@@ -38,5 +38,3 @@ class OpenAIController {
 }
 
 module.exports = OpenAIController;
-
-
