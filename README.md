@@ -1,42 +1,36 @@
-# 🐱 Catacode - Learn to Code Across Languages with Ditty! 🌍💻
+# 🏃‍♂️ StrikeSync - Your Running Companion! 🎶
 
-Welcome to Catacode, your playful guide to mastering syntax across different programming languages! With Ditty, our lovable, shape-shifting cat mascot, you'll learn the key differences between languages like Python, JavaScript, and Java—all in a gamified and engaging way!
+Welcome to **StrikeSync**, your ultimate mobile app designed to help you maintain a consistent running pace through personalized music playlists! With **StrikeSync**, you can easily generate playlists of songs that match your desired BPM (beats per minute), keeping your energy up and your stride steady!
 
-## 📖 What is Catacode?
+## 📖 What is StrikeSync?
+**StrikeSync** is an innovative mobile application that combines fitness with music to enhance your running experience. By leveraging the OpenAI API to generate tailored playlists and the Spotify API to stream music, **StrikeSync** helps you stay motivated during your runs, whether you’re training for a marathon or simply enjoying a jog in the park.
 
-Catacode is a beginner-friendly educational app that helps users learn the syntax of different programming languages through interactive lessons and quizzes. Inspired by platforms like Duolingo, we gamify the learning process to make syntax learning fun and intuitive. Whether you're switching from Python to JavaScript, or just starting out with Java, Catacode has you covered!
-
-Join Ditty as she morphs between different coding languages, helping you bridge the gap between Python's simplicity, JavaScript's flexibility, and Java's structure.
+Join the journey to a better running rhythm, where every step is in sync with your favorite tunes!
 
 ## 🚀 Features
+- **BPM-Based Playlist Generation:** Enter your desired BPM, and **StrikeSync** will curate a playlist of songs that fit your pace.
+- **Spotify Integration:** Seamlessly play your generated playlists directly from your Spotify account.
+- **Dynamic Adjustments:** Modify your pace on-the-go and regenerate playlists without interrupting your run.
+- **Progress Tracking:** Monitor your running sessions and music preferences over time.
+- **Motivational Reminders:** Get encouraged with motivational messages and notifications to keep you going!
 
-Interactive Lessons: Learn essential syntax differences across Python, JavaScript, and Java.
-Gamified Quizzes: Test your knowledge with multiple-choice and fill-in-the-blank questions.
-Point System: Earn points as you complete lessons and quizzes—aim for streaks to keep the momentum going!
-Friendly Feedback: Get instant feedback from Ditty, with helpful tips and corrections.
-Progress Tracking: Track your progress as you master syntax rules across languages.
-🐱 Meet Ditty!
-
-Say hello to Ditty, our friendly mascot! 🐾 Inspired by Pokémon's Ditto, Ditty can "morph" into different forms—just like how you’ll "morph" between different programming languages in Catacode! Follow Ditty’s guidance as you level up your syntax skills, unlocking achievements and mastering cross-language coding concepts.
+## 🐱 Meet Beat, Your Motivational Cat Mascot!
+Say hello to **Beat**, our adorable mascot who keeps you motivated! Inspired by the rhythm of music, **Beat** will guide you through the app, providing tips for better pacing and fun facts about the songs you’re listening to!
 
 ## 🛠️ How It Works
+1. **Set Your Pace:** Input your desired BPM based on your running goals.
+2. **Generate Playlists:** Use the OpenAI API to generate a list of songs that match your pace.
+3. **Listen & Run:** Play your playlist using the Spotify API, keeping your workout engaging and enjoyable.
+4. **Adjust as Needed:** Change your BPM at any time to match your workout intensity and let **Beat** help you create a new playlist.
+5. **Track Your Journey:** Keep tabs on your runs and listen to feedback on your pacing and song choices.
 
-Choose Your Language: Start by picking the language you want to learn or improve on.
-Complete Syntax Lessons: Dive into bite-sized lessons that explain key syntax rules (loops, variables, conditionals, etc.).
-Take Quizzes: Test your understanding through quizzes designed to reinforce what you’ve learned.
-Earn Points: Correct answers earn you points! Keep coming back to maintain streaks and climb the leaderboards.
-Track Your Progress: See your overall progress, and move from beginner to pro with Ditty by your side!
 ## 🎯 Target Audience
+**StrikeSync** is perfect for:
+- Runners of all levels looking to enhance their workout experience.
+- Fitness enthusiasts who want to maintain a consistent pace.
+- Music lovers who want to discover new tracks that fit their tempo.
 
-Catacode is perfect for:
-
-Coding beginners looking to learn multiple languages.
-Developers transitioning between Python, JavaScript, and Java.
-Anyone who wants to reinforce their understanding of syntax across different programming paradigms.
 ## 💻 Tech Stack
-
-Frontend: React (for dynamic UI)
-Backend: Node.js (API and quiz logic)
-Database: Firebase (user progress tracking, lesson storage)
-Gamification: Custom logic to track points, streaks, and achievements
-Content: Syntax lessons and quizzes across Python, JavaScript, and Java
+- **Backend:** Express.js (API and playlist generation logic)
+- **APIs:** OpenAI API (for playlist generation), Spotify API (for music streaming)
+- **Gamification:** Custom logic to keep users engaged with their running and music choices
