@@ -4,7 +4,7 @@ const html = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify OAuth Playback</title>
+    <title></title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -16,6 +16,13 @@ const html = `
             align-items: center;
             height: 100vh;
             color: white;
+        }
+        
+        .button_style {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
@@ -49,7 +56,7 @@ const html = `
         }
 
         button {
-            width: 100%;
+            width: 33%;
             padding: 12px;
             background-color: #317BFE;
             color: white;
@@ -134,10 +141,10 @@ const html = `
 </head>
 <body>
     <div class="container">
-        <h1>Spotify OAuth Playback Control</h1>
+        <h1 id="spotify_title">Spotify</h1>
 
         <!-- Spotify login -->
-        <div>
+        <div id="" class="button_style">
             <button id="login-button">Login with Spotify</button>
         </div>
 
@@ -157,8 +164,10 @@ const html = `
             <label for="duration">Duration (in minutes): </label>
             <input type="text" id="duration" placeholder="Enter Playlist Duration" />
         </div>
-
-        <button id="generate-playlist">Generate Playlist</button>
+        <div class="button_style">
+            <button id="generate-playlist">Generate Playlist</button>
+        </div>
+        
 
         <!-- Player controls -->
         <h2>Music Player</h2>
@@ -207,7 +216,8 @@ const html = `
                     isPlaying = true;
                 }
             });
-
+            const spotify_title = document.getElementById('spotify_title');
+            const login_button = document.getElementById('login-button');
             document.getElementById('generate-playlist').addEventListener('click', () => {
                 // Show the playlist after clicking "Generate Playlist"
                 playlistElement.classList.remove('hidden');
