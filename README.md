@@ -14,9 +14,6 @@ Join the journey to a better running rhythm, where every step is in sync with yo
 - **Progress Tracking:** Monitor your running sessions and music preferences over time.
 - **Motivational Reminders:** Get encouraged with motivational messages and notifications to keep you going!
 
-## 🐱 Meet Beat, Your Motivational Cat Mascot!
-Say hello to **Beat**, our adorable mascot who keeps you motivated! Inspired by the rhythm of music, **Beat** will guide you through the app, providing tips for better pacing and fun facts about the songs you’re listening to!
-
 ## 🛠️ How It Works
 1. **Set Your Pace:** Input your desired BPM based on your running goals.
 2. **Generate Playlists:** Use the OpenAI API to generate a list of songs that match your pace.
