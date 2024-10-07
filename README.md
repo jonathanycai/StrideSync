@@ -14,6 +14,7 @@ Join the journey to a better running rhythm, where every step is in sync with yo
 - **Progress Tracking:** Monitor your running sessions and music preferences over time.
 - **Motivational Reminders:** Get encouraged with motivational messages and notifications to keep you going!
 
+
 ## 🛠️ How It Works
 1. **Set Your Pace:** Input your desired BPM based on your running goals.
 2. **Generate Playlists:** Use the OpenAI API to generate a list of songs that match your pace.
