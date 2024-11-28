@@ -27,6 +27,7 @@ Join the journey to a better running rhythm, where every step is in sync with yo
 - Runners of all levels looking to enhance their workout experience.
 - Fitness enthusiasts who want to maintain a consistent pace.
 - Music lovers who want to discover new tracks that fit their tempo.
+- Frequent runners who want to save time on playlist building.
 
 ## 💻 Tech Stack
 - **Backend:** Express.js (API and playlist generation logic)
